@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A book the notes</title>
+</head>
+<body>
+<h1>Основной сайт</h1>
+<table>
+    <thead>
+    <tr>
+        <th> Название </th>
+        <th> Информация </th>
+        <th> Действие </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${notes.isEmpty()}">
+        <td colspan="2"> Нет ни одной заметки  </td>
+    </tr>
+    <tr th:each="note : ${notes}">
+        <td><span th:text="${note.getTitle()}"> Title </span></td>
+        <td><span th:text="${note.getInformation()}"> Author </span></td>
+        <td>
+            <form method="post" th:action="@{/home/delete/{id}(id=${note.getId()})}" >
+                <input type="submit" value="Удалить заметку"/>
+            </form>
+        </td>
+        <td>
+            <form method="get" th:action="@{/home/note/{id}(id=${note.getId()})}" >
+                <input type="submit" value="Заметка"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table><br>
+
+<h2>Создать новую запись</h2>
+
+<form method="post" action="/home/create">
+    <label>Название <input type="text" name="title" required></label><br>
+    <label>Текст    <input type="text" name="information" required></label><br>
+    <input type="submit" value="Создать заметку" /><br>
+</form>
+
+</body>
+</html>
